@@ -1,0 +1,77 @@
+1 package lab7;
+2 
+3 import java.util.IntSummaryStatistics;
+4 import java.util.Random;
+5 
+6 import Card.Suit;
+7 
+8 /**
+9  * Class representing a standard 52-card deck of playing
+10  * cards from which cards can be selected at random.
+11  */
+12 public class Deck {
+13     /**
+14      * The cards comprising this deck.
+15      */
+16     private Card[] cards;
+17 
+18     /**
+19      * The random number generator to use for selecting cards.
+20      */
+21     private Random rand;
+22 
+23     /**
+24      * Constructs a new deck with a default random number generator.
+25      */
+26     public Deck() {
+27         rand = new Random();
+28         init();
+29     }
+30 
+31     /**
+32      * Constructs a new deck with the given random number generator.
+33      */
+34     public Deck(Random givenGenerator) {
+35         rand = givenGenerator;
+36         init();
+37     }
+38 
+39     /**
+40      * Returns a new array containing k elements selected
+41      * at random from this deck.
+42      */
+43     public Card[] select(int k) {
+44         Random r = new Random();
+45         Card[] selected = new Card[k]; // Hand
+46         Card temp;
+47 
+48         for (int i = 0; i < k; i++) {
+49             int j = r.nextInt(52 - i);
+50 
+51             temp = cards[j];
+52             selected[i] = temp;
+53             cards[i] = cards[cards.length - 1 - i];
+54         }
+55 
+56         return selected;
+57     }
+58 
+59     /**
+60      * Initializes a new deck of 52 cards.
+61      */
+62     private void init() {
+63         cards = new Card[52];
+64         int index = 0;
+65         for (int rank = 1; rank <= 13; ++rank) {
+66             cards[index] = new Card(rank, Suit.CLUBS);
+67             index += 1;
+68             cards[index] = new Card(rank, Suit.DIAMONDS);
+69             index += 1;
+70             cards[index] = new Card(rank, Suit.HEARTS);
+71             index += 1;
+72             cards[index] = new Card(rank, Suit.SPADES);
+73             index += 1;
+74         }
+75 
+76     }
+77 }
